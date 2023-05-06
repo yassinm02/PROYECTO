@@ -1,4 +1,7 @@
 package com.stockcontroll.data_DAO;
 
-public interface UduarioDao {
+import com.stockcontroll.model_POJO.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UduarioDao extends JpaRepository<Usuario, Integer> {
 }

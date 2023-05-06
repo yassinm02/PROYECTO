@@ -7,15 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/productos")
 public class ProductosController {
 
     @Autowired
     private ProductService productService;
-
-
 
     @GetMapping()
     public List<Producto> ListProducts(){

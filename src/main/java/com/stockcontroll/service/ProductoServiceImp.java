@@ -13,6 +13,12 @@ public class ProductoServiceImp implements ProductService{
 
     @Autowired
     private ProductoDao productoDao;
+
+    @Override
+    public List<Producto> findByName(String name) {
+        return productoDao.findByProductNameContaining(name);
+    }
+
     @Override
     public List<Producto> findAll() {
         return productoDao.findAll();

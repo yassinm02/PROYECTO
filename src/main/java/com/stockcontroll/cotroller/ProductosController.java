@@ -20,6 +20,11 @@ public class ProductosController {
         return productService.findAll();
     }
 
+    @GetMapping("/buscar")
+    public List<Producto> buscarProductos(@RequestParam(name = "name") String name) {
+        return productService.findByName(name);
+    }
+
     @GetMapping("/{id}")
     public Producto findById(@PathVariable int id){
         return productService.findById(id).orElseThrow();

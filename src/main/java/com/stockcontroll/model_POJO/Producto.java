@@ -1,6 +1,7 @@
 package com.stockcontroll.model_POJO;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.stockcontroll.model_POJO.enums.EstadoProducto;
 
 import javax.persistence.*;
@@ -93,6 +94,7 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public EstadoProducto getEstado() {
         return estado;
     }
@@ -109,6 +111,7 @@ public class Producto {
         this.precioBase = precioBase;
     }
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public TipoIva getTipoIva() {
         return tipoIva;
     }

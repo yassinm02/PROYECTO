@@ -1,4 +1,4 @@
-package com.stockcontroll.service;
+package com.stockcontroll.service.Product;
 
 import com.stockcontroll.model_POJO.Producto;
 

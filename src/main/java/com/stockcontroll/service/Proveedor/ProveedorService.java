@@ -1,6 +1,5 @@
-package com.stockcontroll.service;
+package com.stockcontroll.service.Proveedor;
 
-import com.stockcontroll.model_POJO.Producto;
 import com.stockcontroll.model_POJO.Proveedor;
 
 import java.util.List;

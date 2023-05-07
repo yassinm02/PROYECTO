@@ -1,10 +1,11 @@
 package com.stockcontroll.model_POJO;
 
 import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tipos_iva")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TipoIva {
 
     @Id
@@ -17,6 +18,14 @@ public class TipoIva {
 
     @Column(name = "porcentaje")
     private double percentage;
+
+    public TipoIva(){}
+
+    public TipoIva(int id, String name, double percentage) {
+        this.id = id;
+        this.name = name;
+        this.percentage = percentage;
+    }
 
     public int getId() {
         return id;

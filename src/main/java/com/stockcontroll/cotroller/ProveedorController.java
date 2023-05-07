@@ -2,7 +2,7 @@ package com.stockcontroll.cotroller;
 
 
 import com.stockcontroll.model_POJO.Proveedor;
-import com.stockcontroll.service.ProveedorService;
+import com.stockcontroll.service.Proveedor.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +18,7 @@ public class ProveedorController {
 
     @GetMapping
     public List<Proveedor> getProveedorList(){
-        List<Proveedor> proveedors = proveedorService.findAll();
-        return proveedors;
+        return proveedorService.findAll();
     }
 
     @PostMapping

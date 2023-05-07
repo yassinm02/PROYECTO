@@ -1,4 +1,4 @@
-package com.stockcontroll.service;
+package com.stockcontroll.service.Proveedor;
 
 import com.stockcontroll.data_DAO.ProveedorDao;
 import com.stockcontroll.model_POJO.Proveedor;

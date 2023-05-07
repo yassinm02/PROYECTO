@@ -1,9 +1,12 @@
 package com.stockcontroll.model_POJO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "proveedores")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Proveedor {
 
     @Id

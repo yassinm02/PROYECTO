@@ -1,6 +1,6 @@
-package com.stockcontroll.data_DAO;
+package com.stockcontroll.data;
 
-import com.stockcontroll.model_POJO.Producto;
+import com.stockcontroll.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,14 +1,16 @@
 package com.stockcontroll.service.Product;
 
-import com.stockcontroll.data_DAO.ProductoDao;
-import com.stockcontroll.model_POJO.Producto;
+import com.stockcontroll.data.ProductoDao;
+import com.stockcontroll.model.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProductoServiceImp implements ProductService{
 
     @Autowired
@@ -37,5 +39,10 @@ public class ProductoServiceImp implements ProductService{
     @Override
     public void deleteById(int id) {
         productoDao.deleteById(id);
+    }
+
+    @Override
+    public boolean ProductExists(int id) {
+        return productoDao.existsById(id);
     }
 }

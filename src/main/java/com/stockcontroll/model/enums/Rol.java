@@ -1,4 +1,4 @@
-package com.stockcontroll.model_POJO.enums;
+package com.stockcontroll.model.enums;
 
 public enum Rol {
     EMPLEADO("empleado"),

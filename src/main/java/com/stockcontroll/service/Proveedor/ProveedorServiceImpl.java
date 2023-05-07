@@ -1,14 +1,16 @@
 package com.stockcontroll.service.Proveedor;
 
-import com.stockcontroll.data_DAO.ProveedorDao;
-import com.stockcontroll.model_POJO.Proveedor;
+import com.stockcontroll.data.ProveedorDao;
+import com.stockcontroll.model.Proveedor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProveedorServiceImpl implements ProveedorService{
 
     @Autowired

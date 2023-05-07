@@ -1,6 +1,6 @@
 package com.stockcontroll.service.TipoIva;
 
-import com.stockcontroll.model_POJO.TipoIva;
+import com.stockcontroll.model.TipoIva;
 
 import java.util.List;
 import java.util.Optional;

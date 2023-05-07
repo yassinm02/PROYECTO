@@ -1,14 +1,16 @@
 package com.stockcontroll.service.TipoIva;
 
-import com.stockcontroll.data_DAO.TipoIvaDao;
-import com.stockcontroll.model_POJO.TipoIva;
+import com.stockcontroll.data.TipoIvaDao;
+import com.stockcontroll.model.TipoIva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TipoIvaServiceImpl implements TipoIvaService{
 
     @Autowired

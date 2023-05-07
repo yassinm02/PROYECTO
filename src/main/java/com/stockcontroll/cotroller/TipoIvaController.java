@@ -1,8 +1,7 @@
 package com.stockcontroll.cotroller;
 
 
-import com.stockcontroll.model_POJO.Proveedor;
-import com.stockcontroll.model_POJO.TipoIva;
+import com.stockcontroll.model.TipoIva;
 import com.stockcontroll.service.TipoIva.TipoIvaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

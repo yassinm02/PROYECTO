@@ -1,11 +1,11 @@
-package com.stockcontroll.model_POJO;
+package com.stockcontroll.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.stockcontroll.model_POJO.enums.EstadoProducto;
+import com.stockcontroll.model.enums.EstadoProducto;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -17,6 +17,7 @@ public class Producto {
     private int id;
 
     @Column(name = "name")
+    @NotNull
     private String name;
 
     @Column(name = "descripcion")
@@ -26,14 +27,17 @@ public class Producto {
     private String marca;
 
     @Column(name = "cantidad")
+    @NotNull
     private Integer cantidad;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
+    @NotNull
     private EstadoProducto estado;
 
     @Column(name = "precio_base")
-    private BigDecimal precioBase;
+    @NotNull
+    private double precioBase;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_iva")
@@ -103,11 +107,11 @@ public class Producto {
         this.estado = estado;
     }
 
-    public BigDecimal getPrecioBase() {
+    public double getPrecioBase() {
         return precioBase;
     }
 
-    public void setPrecioBase(BigDecimal precioBase) {
+    public void setPrecioBase(double precioBase) {
         this.precioBase = precioBase;
     }
 

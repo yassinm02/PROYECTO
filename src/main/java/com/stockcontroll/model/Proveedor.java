@@ -1,4 +1,4 @@
-package com.stockcontroll.model_POJO;
+package com.stockcontroll.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

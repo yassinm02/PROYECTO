@@ -1,7 +1,7 @@
 package com.stockcontroll.cotroller;
 
 
-import com.stockcontroll.model_POJO.Proveedor;
+import com.stockcontroll.model.Proveedor;
 import com.stockcontroll.service.Proveedor.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

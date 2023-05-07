@@ -1,6 +1,6 @@
 package com.stockcontroll.service.Product;
 
-import com.stockcontroll.model_POJO.Producto;
+import com.stockcontroll.model.Producto;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +15,6 @@ public interface ProductService {
     Producto save(Producto producto);
 
     public void deleteById(int id);
+
+    boolean ProductExists(int id);
 }

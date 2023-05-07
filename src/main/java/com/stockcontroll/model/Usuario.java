@@ -1,6 +1,6 @@
-package com.stockcontroll.model_POJO;
+package com.stockcontroll.model;
 
-import com.stockcontroll.model_POJO.enums.Rol;
+import com.stockcontroll.model.enums.Rol;
 
 import javax.persistence.*;
 

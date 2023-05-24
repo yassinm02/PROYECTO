@@ -2,11 +2,11 @@ package com.stockcontroll.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.stockcontroll.model.enums.EstadoProducto;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "productos")
@@ -30,10 +30,9 @@ public class Producto {
     @NotNull
     private Integer cantidad;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     @NotNull
-    private EstadoProducto estado;
+    private String estado;
 
     @Column(name = "precio_base")
     @NotNull
@@ -99,11 +98,11 @@ public class Producto {
     }
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    public EstadoProducto getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoProducto estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -154,5 +153,23 @@ public class Producto {
 
     public void setCodBarras(String codBarras) {
         this.codBarras = codBarras;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", marca='" + marca + '\'' +
+                ", cantidad=" + cantidad +
+                ", estado='" + estado + '\'' +
+                ", precioBase=" + precioBase +
+                ", tipoIva=" + tipoIva +
+                ", fechaCreacion=" + fechaCreacion +
+                ", proveedor=" + proveedor +
+                ", image=" + Arrays.toString(image) +
+                ", codBarras='" + codBarras + '\'' +
+                '}';
     }
 }

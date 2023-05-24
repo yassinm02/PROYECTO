@@ -35,4 +35,9 @@ public class ProveedorServiceImpl implements ProveedorService{
     public void deleteById(int id) {
         this.proveedorDao.deleteById(id);
     }
+
+    @Override
+    public boolean ProveedorExists(int id) {
+        return !proveedorDao.existsById(id);
+    }
 }

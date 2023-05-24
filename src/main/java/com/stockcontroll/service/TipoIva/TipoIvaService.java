@@ -13,6 +13,7 @@ public interface TipoIvaService {
 
     TipoIva save(TipoIva tipoIva);
 
-    public void deleteById(int id);
+    void deleteById(int id);
 
+    boolean IvaExists(int id);
 }

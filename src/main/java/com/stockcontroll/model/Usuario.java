@@ -1,12 +1,11 @@
 package com.stockcontroll.model;
 
-import com.stockcontroll.model.enums.Rol;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +21,8 @@ public class Usuario {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
-    private Rol rol;
+    private String rol;
 
     @Column(name = "nombre")
     private String nombre;
@@ -39,6 +37,16 @@ public class Usuario {
     private String direccion;
 
     public Usuario() {}
+
+    public Usuario(String username, String password, String rol) {
+        this.username = username;
+        setPassword(password);
+        this.rol = rol;
+        this.enabled = true;
+    }
+
+    public void setPassword(String password) {
+    }
 
     public int getId() {
         return id;
@@ -60,10 +68,6 @@ public class Usuario {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
@@ -72,11 +76,11 @@ public class Usuario {
         this.enabled = enabled;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 

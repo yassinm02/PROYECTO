@@ -15,4 +15,6 @@ public interface ProveedorService {
 
     void deleteById(int id);
 
+    boolean ProveedorExists(int id);
+
 }

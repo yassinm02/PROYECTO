@@ -35,4 +35,9 @@ public class TipoIvaServiceImpl implements TipoIvaService{
     public void deleteById(int id) {
         tipoIvaDao.deleteById(id);
     }
+
+    @Override
+    public boolean IvaExists(int id) {
+        return tipoIvaDao.existsById(id);
+    }
 }

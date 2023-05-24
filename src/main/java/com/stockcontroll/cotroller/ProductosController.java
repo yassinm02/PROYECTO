@@ -2,14 +2,21 @@ package com.stockcontroll.cotroller;
 
 import com.stockcontroll.model.Producto;
 import com.stockcontroll.service.Product.ProductService;
+import com.stockcontroll.service.Proveedor.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/productos")
 public class ProductosController {
@@ -17,20 +24,33 @@ public class ProductosController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProveedorService proveedorService;
+
     @GetMapping()
     public List<Producto> ListProducts(){
         return productService.findAll();
     }
 
-    @GetMapping("/buscar")
-    public List<Producto> buscarProductos(@RequestParam(name = "name") String name) {
-        return productService.findByName(name);
+    @GetMapping("/list")
+    public Page<Producto> obtenerProductos(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "searchTerm", required = false) String searchTerm) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return productService.findByName(searchTerm, pageable);
+        } else {
+            return productService.findAll(pageable);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id){
 
-        if(!productService.ProductExists(id)) {
+        if(!productService.ProductExistsById(id)) {
             return new ResponseEntity<>("NO HAY PRODUCTO CON ID: "+id, HttpStatus.NOT_FOUND);
         }
 
@@ -39,7 +59,7 @@ public class ProductosController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id){
-        if (!productService.ProductExists(id)){
+        if (!productService.ProductExistsById(id)){
             return new ResponseEntity<>("NO HAY PRODUCTO CON ID: "+id, HttpStatus.NOT_FOUND);
         }
         productService.deleteById(id);
@@ -47,24 +67,33 @@ public class ProductosController {
         return new ResponseEntity<>("PRODUCTO BORRADO CON EXITO", HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<?> saveProduct(@RequestBody Producto producto){
-        productService.save(producto);
-        return new ResponseEntity<>("PRODUCTO GUARDADO", HttpStatus.CREATED);
+    @PostMapping("/create")
+    public ResponseEntity<String> saveProduct(@RequestBody Producto producto) {
+        try {
+            System.out.println(producto.toString());
+            productService.save(producto);
+            return ResponseEntity.status(HttpStatus.CREATED).body("PRODUCTO GUARDADO");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el producto: " + e.getMessage());
+        }
     }
 
-    @PutMapping
-    public ResponseEntity<?> editProducto(@RequestBody Producto producto){
-        if (!productService.ProductExists(producto.getId())){
-            return new ResponseEntity<>("NO HAY PRODUCTO CON ID: "+producto.getId(), HttpStatus.NOT_FOUND);
-        }
+
+    @PutMapping("/productos/{id}")
+    public ResponseEntity<String> editarProducto(@PathVariable("id") int id, @RequestBody Producto producto) {
         try {
+            if (!productService.ProductExistsById(id)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el producto con ID: " + id);
+            }
+
+            producto.setId(id);
             productService.save(producto);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Producto editado exitosamente");
+        } catch (DataAccessException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al editar el producto");
         }
-        catch (Exception e){
-            return new ResponseEntity<>("ERROR AL EDITAR PRODUCTO", HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>("PRODUCTO EDITADO", HttpStatus.CREATED);
     }
+
 
 }

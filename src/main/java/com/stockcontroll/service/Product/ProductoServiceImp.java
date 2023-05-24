@@ -2,7 +2,12 @@ package com.stockcontroll.service.Product;
 
 import com.stockcontroll.data.ProductoDao;
 import com.stockcontroll.model.Producto;
+import com.stockcontroll.service.Proveedor.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,14 +21,30 @@ public class ProductoServiceImp implements ProductService{
     @Autowired
     private ProductoDao productoDao;
 
+    @Autowired
+    private ProveedorService proveedorService;
+
     @Override
-    public List<Producto> findByName(String name) {
-        return productoDao.findByProductNameContaining(name);
+    public Page<Producto> findByName(String name, Pageable pageable) {
+        return productoDao.findByNameContaining(name, pageable);
     }
 
     @Override
     public List<Producto> findAll() {
         return productoDao.findAll();
+    }
+
+    @Override
+    public Page<Producto> findAll(Pageable pageable) {
+        return productoDao.findAll(pageable);
+    }
+
+    @Override
+    public List<Producto> findAllPags(int page, int size) {
+        Pageable pages = PageRequest.of(page, size);
+        Page<Producto> productoPage = productoDao.findAll(pages);
+
+        return productoPage.getContent();
     }
 
     @Override
@@ -42,7 +63,7 @@ public class ProductoServiceImp implements ProductService{
     }
 
     @Override
-    public boolean ProductExists(int id) {
+    public boolean ProductExistsById(int id) {
         return productoDao.existsById(id);
     }
 }

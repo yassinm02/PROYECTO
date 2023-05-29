@@ -79,10 +79,10 @@ public class ProductosController {
     }
 
 
-    @PutMapping("/productos/{id}")
+    @PatchMapping("/edit/{id}")
     public ResponseEntity<String> editarProducto(@PathVariable("id") int id, @RequestBody Producto producto) {
         try {
-            if (!productService.ProductExistsById(id)) {
+            if (productService.findById(id).isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el producto con ID: " + id);
             }
 
@@ -90,10 +90,16 @@ public class ProductosController {
             productService.save(producto);
 
             return ResponseEntity.status(HttpStatus.OK).body("Producto editado exitosamente");
-        } catch (DataAccessException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al editar el producto");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al editar el producto: " + e.getMessage());
         }
     }
 
+    @GetMapping("/barcode/{barcode}")
+    private ResponseEntity<?> getByCodBarras(@PathVariable("barcode") String barcode){
+        Producto producto = productService.findByCodBarras(barcode);
 
+        return producto == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el producto con codigo de barras: " + barcode) : ResponseEntity.status(HttpStatus.OK).body(producto);
+
+    }
 }

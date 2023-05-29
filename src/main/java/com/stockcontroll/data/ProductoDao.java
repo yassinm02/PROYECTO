@@ -11,4 +11,7 @@ public interface ProductoDao extends JpaRepository<Producto, Integer> {
 
     Page<Producto> findByNameContaining(String productName, Pageable pageable);
     boolean existsById(Integer integer);
+
+    Producto findByCodBarrasIgnoreCase(String codBarras);
+
 }

@@ -66,4 +66,9 @@ public class ProductoServiceImp implements ProductService{
     public boolean ProductExistsById(int id) {
         return productoDao.existsById(id);
     }
+
+    @Override
+    public Producto findByCodBarras(String codBarras) {
+        return productoDao.findByCodBarrasIgnoreCase(codBarras);
+    }
 }

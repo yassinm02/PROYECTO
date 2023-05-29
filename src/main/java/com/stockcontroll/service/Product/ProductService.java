@@ -22,4 +22,6 @@ public interface ProductService {
     public void deleteById(int id);
 
     boolean ProductExistsById(int id);
+
+    Producto findByCodBarras(String codBarras);
 }

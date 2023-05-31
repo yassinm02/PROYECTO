@@ -7,6 +7,8 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "productos")
@@ -54,6 +56,9 @@ public class Producto {
 
     @Column(name = "cod_barras")
     private String codBarras;
+
+    @ManyToMany(mappedBy = "productos")
+    private Set<Inventario> inventarios = new HashSet<>();
 
     public Producto(){}
 

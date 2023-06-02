@@ -1,7 +1,6 @@
 package com.stockcontroll.service.Product;
 
 import com.stockcontroll.model.Producto;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,4 +23,6 @@ public interface ProductService {
     boolean ProductExistsById(int id);
 
     Producto findByCodBarras(String codBarras);
+
+    long count();
 }

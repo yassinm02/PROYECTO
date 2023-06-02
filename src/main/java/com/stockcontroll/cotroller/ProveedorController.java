@@ -1,13 +1,19 @@
 package com.stockcontroll.cotroller;
 
 
+import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.Proveedor;
 import com.stockcontroll.service.Proveedor.ProveedorService;
+import com.stockcontroll.util.ProductPdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(value = "*", maxAge = 3600)
@@ -65,6 +71,16 @@ public class ProveedorController {
             return new ResponseEntity<>("ERROR AL EDITAR PROVEEDOR", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>("PROVEEDOR EDITADO", HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public void downloadPdf(HttpServletResponse response) throws IOException, DocumentException {
+        response.setContentType("application/pdf");
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=proveedores" + LocalDate.now() + ".pdf";
+        response.setHeader(headerkey, headervalue);
+        List <Proveedor> proveedorList = proveedorService.findAll();
+        ProductPdfGenerator.generatePdfProveedores(proveedorList, response);
     }
 
 }

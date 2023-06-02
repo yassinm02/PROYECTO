@@ -52,6 +52,16 @@ public class InventarioProducto {
         return revisado;
     }
 
+    @Override
+    public String toString() {
+        return "InventarioProducto{" +
+                "id=" + id +
+                ", inventario=" + inventario.getId() +
+                ", producto=" + producto.getId() +
+                ", revisado=" + revisado +
+                '}';
+    }
+
     public void setRevisado(boolean revisado) {
         this.revisado = revisado;
     }

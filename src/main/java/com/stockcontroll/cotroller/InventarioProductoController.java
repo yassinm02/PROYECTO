@@ -1,15 +1,21 @@
 package com.stockcontroll.cotroller;
 
+import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.InventarioProducto;
 import com.stockcontroll.service.InventarioProducto.InventarioProductoService;
+import com.stockcontroll.util.ProductPdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,10 +68,9 @@ public class InventarioProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoInventarioProducto);
     }
 
-    @PutMapping("/{idInventario}/{idProducto}")
-    public ResponseEntity<InventarioProducto> actualizarRevisado(@PathVariable int idInventario, @PathVariable int idProducto, @RequestParam boolean revisado) {
-        Optional<InventarioProducto> inventarioProducto = inventarioProductoService.actualizarRevisado(idInventario, idProducto, revisado);
-        return inventarioProducto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    @PutMapping("/actualizar-revisado/{idInventario}/{idProducto}/{revisado}")
+    public void actualizarRevisado(@PathVariable int idInventario, @PathVariable int idProducto, @PathVariable boolean revisado) {
+        inventarioProductoService.actualizarRevisado(idInventario, idProducto, revisado);
     }
 
     @DeleteMapping("/{idInventario}/{idProducto}")
@@ -78,6 +83,18 @@ public class InventarioProductoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping(value = "/pdf/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public void downloadPdf(@PathVariable int id, HttpServletResponse response) throws IOException, DocumentException {
+        response.setContentType("application/pdf");
+        String filename = "productos_" + LocalDate.now() + ".pdf";
+        response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+
+        List<InventarioProducto> productoList = inventarioProductoService.obtenerPorIdInventario(id);
+
+        ProductPdfGenerator.generatePdfInventarioProductos(productoList, response);
+    }
+
 
 
 }

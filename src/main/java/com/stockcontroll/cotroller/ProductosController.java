@@ -1,19 +1,22 @@
 package com.stockcontroll.cotroller;
 
+import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.Producto;
 import com.stockcontroll.service.Product.ProductService;
 import com.stockcontroll.service.Proveedor.ProveedorService;
+import com.stockcontroll.util.ProductPdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*",maxAge = 3600)
@@ -26,6 +29,18 @@ public class ProductosController {
 
     @Autowired
     private ProveedorService proveedorService;
+
+    @GetMapping("/check")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getCheck(){
+        try{
+            long count = productService.count();
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping()
     public List<Producto> ListProducts(){
@@ -102,4 +117,17 @@ public class ProductosController {
         return producto == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró el producto con codigo de barras: " + barcode) : ResponseEntity.status(HttpStatus.OK).body(producto);
 
     }
+
+
+    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public void downloadPdf(HttpServletResponse response) throws IOException, DocumentException {
+        response.setContentType("application/pdf");
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=productos" + LocalDate.now() + ".pdf";
+        response.setHeader(headerkey, headervalue);
+        List <Producto> productoList = productService.findAll();
+        ProductPdfGenerator.generatePdfProducts(productoList, response);
+    }
+
+
 }

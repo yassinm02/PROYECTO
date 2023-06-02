@@ -44,15 +44,17 @@ public class InventarioProductoServiceImpl implements InventarioProductoService{
 
 
     @Override
-    public Optional<InventarioProducto> actualizarRevisado(int idInventario, int idProducto, boolean revisado) {
-        Optional<InventarioProducto> inventarioProductoOptional = inventarioProductoDao.findById(new InventarioProductoId(idInventario, idProducto));
-        if (inventarioProductoOptional.isPresent()) {
-            InventarioProducto inventarioProducto = inventarioProductoOptional.get();
+    public void actualizarRevisado(int idInventario, int idProducto, boolean revisado) {
+        Optional<InventarioProducto> optionalInventarioProducto = inventarioProductoDao.findById(new InventarioProductoId(idInventario, idProducto));
+        if (optionalInventarioProducto.isPresent()) {
+            revisado  = true;
+            InventarioProducto inventarioProducto = optionalInventarioProducto.get();
             inventarioProducto.setRevisado(revisado);
-            InventarioProducto inventarioProductoActualizado = inventarioProductoDao.save(inventarioProducto);
-            return Optional.of(inventarioProductoActualizado);
+            inventarioProductoDao.save(inventarioProducto);
+            System.out.println(inventarioProducto.toString());
+        } else {
+            throw new IllegalArgumentException("No se encontró el inventario del producto");
         }
-        return Optional.empty();
     }
 
 
@@ -64,5 +66,11 @@ public class InventarioProductoServiceImpl implements InventarioProductoService{
         InventarioProductoId inventarioProductoId = new InventarioProductoId(idInventario, idProducto);
         return inventarioProductoDao.existsById(inventarioProductoId);
     }
+
+    public InventarioProducto getByIdProductInventory(int idProducto, int idInventory) {
+        return inventarioProductoDao.findById(new InventarioProductoId(idInventory,idProducto)).get();
+    }
+
+
 
 }

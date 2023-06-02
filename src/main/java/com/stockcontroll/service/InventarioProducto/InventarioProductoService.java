@@ -19,7 +19,9 @@ public interface InventarioProductoService {
 
     InventarioProducto guardar(InventarioProducto inventarioProducto);
 
-    Optional<InventarioProducto> actualizarRevisado(int idInventario, int idProducto, boolean revisado);
+    InventarioProducto getByIdProductInventory(int idProducto, int idT);
+
+    void actualizarRevisado(int idInventario, int idProducto, boolean revisado);
 
     void eliminar(InventarioProducto inventarioProducto);
 

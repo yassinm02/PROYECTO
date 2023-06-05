@@ -1,6 +1,6 @@
 package com.stockcontroll.service.Proveedor;
 
-import com.stockcontroll.data.ProveedorDao;
+import com.stockcontroll.repository.ProveedorRepository;
 import com.stockcontroll.model.Proveedor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,30 +14,30 @@ import java.util.Optional;
 public class ProveedorServiceImpl implements ProveedorService{
 
     @Autowired
-    private ProveedorDao proveedorDao;
+    private ProveedorRepository proveedorRepository;
 
     @Override
     public List<Proveedor> findAll() {
-        return proveedorDao.findAll();
+        return proveedorRepository.findAll();
     }
 
     @Override
     public Optional<Proveedor> findById(int id) {
-        return this.proveedorDao.findById(id);
+        return this.proveedorRepository.findById(id);
     }
 
     @Override
     public Proveedor save(Proveedor proveedor) {
-        return this.proveedorDao.save(proveedor);
+        return this.proveedorRepository.save(proveedor);
     }
 
     @Override
     public void deleteById(int id) {
-        this.proveedorDao.deleteById(id);
+        this.proveedorRepository.deleteById(id);
     }
 
     @Override
     public boolean ProveedorExists(int id) {
-        return !proveedorDao.existsById(id);
+        return !proveedorRepository.existsById(id);
     }
 }

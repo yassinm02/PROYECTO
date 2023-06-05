@@ -4,7 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.Producto;
 import com.stockcontroll.service.Product.ProductService;
 import com.stockcontroll.service.Proveedor.ProveedorService;
-import com.stockcontroll.util.ProductPdfGenerator;
+import com.stockcontroll.util.PdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -126,7 +126,7 @@ public class ProductosController {
         String headervalue = "attachment; filename=productos" + LocalDate.now() + ".pdf";
         response.setHeader(headerkey, headervalue);
         List <Producto> productoList = productService.findAll();
-        ProductPdfGenerator.generatePdfProducts(productoList, response);
+        PdfGenerator.generatePdfProducts(productoList, response);
     }
 
 

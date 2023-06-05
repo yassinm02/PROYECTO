@@ -1,6 +1,6 @@
 package com.stockcontroll.service.Inventario;
 
-import com.stockcontroll.data.InventarioDao;
+import com.stockcontroll.repository.InventarioRepository;
 import com.stockcontroll.model.Inventario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class InventarioServiceImpl implements InventarioService {
 
     @Autowired
-    private InventarioDao inventarioRepository;
+    private InventarioRepository inventarioRepository;
 
     @Override
     public List<Inventario> obtenerTodos() {

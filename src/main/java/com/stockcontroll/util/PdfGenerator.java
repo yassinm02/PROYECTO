@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ProductPdfGenerator {
+public class PdfGenerator {
+
+    static BaseColor colorFondo = new BaseColor(221,208,200);
 
     public static Document generatePdfProducts(List<Producto> productos, HttpServletResponse response) throws IOException, DocumentException {
         Document document = new Document(PageSize.A4);
@@ -31,7 +33,7 @@ public class ProductPdfGenerator {
 
         Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
         PdfPCell headerCell = new PdfPCell();
-        headerCell.setBackgroundColor(BaseColor.BLUE);
+        headerCell.setBackgroundColor(colorFondo);
         headerCell.setPadding(5);
 
         headerCell.setPhrase(new Phrase("Nombre", fontHeader));
@@ -98,7 +100,7 @@ public class ProductPdfGenerator {
 
         Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
         PdfPCell headerCell = new PdfPCell();
-        headerCell.setBackgroundColor(BaseColor.BLUE);
+        headerCell.setBackgroundColor(colorFondo);
         headerCell.setPadding(5);
 
         headerCell.setPhrase(new Phrase("Nombre", fontHeader));
@@ -149,9 +151,9 @@ public class ProductPdfGenerator {
         table.setWidths(new float[]{3, 3, 3, 3});
         table.setSpacingBefore(10);
 
-        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
+        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.DARK_GRAY);
         PdfPCell headerCell = new PdfPCell();
-        headerCell.setBackgroundColor(BaseColor.BLUE);
+        headerCell.setBackgroundColor(colorFondo);
         headerCell.setPadding(5);
 
 

@@ -1,4 +1,4 @@
-package com.stockcontroll.data;
+package com.stockcontroll.repository;
 
 import com.stockcontroll.model.Producto;
 import org.springframework.data.domain.Page;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
-public interface ProductoDao extends JpaRepository<Producto, Integer> {
+public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
     Page<Producto> findByNameContaining(String productName, Pageable pageable);
     boolean existsById(Integer integer);

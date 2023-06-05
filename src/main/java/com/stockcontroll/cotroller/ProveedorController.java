@@ -4,7 +4,7 @@ package com.stockcontroll.cotroller;
 import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.Proveedor;
 import com.stockcontroll.service.Proveedor.ProveedorService;
-import com.stockcontroll.util.ProductPdfGenerator;
+import com.stockcontroll.util.PdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -80,7 +80,7 @@ public class ProveedorController {
         String headervalue = "attachment; filename=proveedores" + LocalDate.now() + ".pdf";
         response.setHeader(headerkey, headervalue);
         List <Proveedor> proveedorList = proveedorService.findAll();
-        ProductPdfGenerator.generatePdfProveedores(proveedorList, response);
+        PdfGenerator.generatePdfProveedores(proveedorList, response);
     }
 
 }

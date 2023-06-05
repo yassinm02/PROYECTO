@@ -3,7 +3,7 @@ package com.stockcontroll.cotroller;
 import com.itextpdf.text.DocumentException;
 import com.stockcontroll.model.InventarioProducto;
 import com.stockcontroll.service.InventarioProducto.InventarioProductoService;
-import com.stockcontroll.util.ProductPdfGenerator;
+import com.stockcontroll.util.PdfGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -92,7 +92,7 @@ public class InventarioProductoController {
 
         List<InventarioProducto> productoList = inventarioProductoService.obtenerPorIdInventario(id);
 
-        ProductPdfGenerator.generatePdfInventarioProductos(productoList, response);
+        PdfGenerator.generatePdfInventarioProductos(productoList, response);
     }
 
 

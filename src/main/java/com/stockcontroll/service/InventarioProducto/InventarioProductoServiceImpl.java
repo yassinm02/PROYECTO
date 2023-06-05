@@ -1,7 +1,7 @@
 package com.stockcontroll.service.InventarioProducto;
 
 
-import com.stockcontroll.data.InventarioProductoDao;
+import com.stockcontroll.repository.InventarioProductoRepository;
 import com.stockcontroll.model.InventarioProducto;
 import com.stockcontroll.model.InventarioProductoId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import java.util.Optional;
 public class InventarioProductoServiceImpl implements InventarioProductoService{
 
     @Autowired
-    private InventarioProductoDao inventarioProductoDao;
+    private InventarioProductoRepository inventarioProductoRepository;
 
     public List<InventarioProducto> obtenerPorIdInventario(int idInventario) {
-        return inventarioProductoDao.findByInventarioId(idInventario);
+        return inventarioProductoRepository.findByInventarioId(idInventario);
     }
 
 
@@ -30,27 +30,27 @@ public class InventarioProductoServiceImpl implements InventarioProductoService{
 
     @Override
     public List<InventarioProducto> obtenerTodos() {
-        return inventarioProductoDao.findAll();
+        return inventarioProductoRepository.findAll();
     }
 
     @Override
     public InventarioProducto guardar(InventarioProducto inventarioProducto) {
-        return inventarioProductoDao.save(inventarioProducto);
+        return inventarioProductoRepository.save(inventarioProducto);
     }
 
     public Page<InventarioProducto> obtenerTodosPaginado(Pageable pageable) {
-        return inventarioProductoDao.findAll(pageable);
+        return inventarioProductoRepository.findAll(pageable);
     }
 
 
     @Override
     public void actualizarRevisado(int idInventario, int idProducto, boolean revisado) {
-        Optional<InventarioProducto> optionalInventarioProducto = inventarioProductoDao.findById(new InventarioProductoId(idInventario, idProducto));
+        Optional<InventarioProducto> optionalInventarioProducto = inventarioProductoRepository.findById(new InventarioProductoId(idInventario, idProducto));
         if (optionalInventarioProducto.isPresent()) {
             revisado  = true;
             InventarioProducto inventarioProducto = optionalInventarioProducto.get();
             inventarioProducto.setRevisado(revisado);
-            inventarioProductoDao.save(inventarioProducto);
+            inventarioProductoRepository.save(inventarioProducto);
             System.out.println(inventarioProducto.toString());
         } else {
             throw new IllegalArgumentException("No se encontró el inventario del producto");
@@ -59,16 +59,16 @@ public class InventarioProductoServiceImpl implements InventarioProductoService{
 
 
     public void eliminar(InventarioProducto inventarioProducto) {
-        inventarioProductoDao.delete(inventarioProducto);
+        inventarioProductoRepository.delete(inventarioProducto);
     }
 
     public boolean existeInventarioProducto(int idInventario, int idProducto) {
         InventarioProductoId inventarioProductoId = new InventarioProductoId(idInventario, idProducto);
-        return inventarioProductoDao.existsById(inventarioProductoId);
+        return inventarioProductoRepository.existsById(inventarioProductoId);
     }
 
     public InventarioProducto getByIdProductInventory(int idProducto, int idInventory) {
-        return inventarioProductoDao.findById(new InventarioProductoId(idInventory,idProducto)).get();
+        return inventarioProductoRepository.findById(new InventarioProductoId(idInventory,idProducto)).get();
     }
 
 

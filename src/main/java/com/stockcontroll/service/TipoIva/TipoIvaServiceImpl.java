@@ -1,6 +1,6 @@
 package com.stockcontroll.service.TipoIva;
 
-import com.stockcontroll.data.TipoIvaDao;
+import com.stockcontroll.repository.TipoIvaRepository;
 import com.stockcontroll.model.TipoIva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,30 +14,30 @@ import java.util.Optional;
 public class TipoIvaServiceImpl implements TipoIvaService{
 
     @Autowired
-    private TipoIvaDao tipoIvaDao;
+    private TipoIvaRepository tipoIvaRepository;
 
     @Override
     public List<TipoIva> findAll() {
-        return tipoIvaDao.findAll();
+        return tipoIvaRepository.findAll();
     }
 
     @Override
     public Optional<TipoIva> findById(int id) {
-        return tipoIvaDao.findById(id);
+        return tipoIvaRepository.findById(id);
     }
 
     @Override
     public TipoIva save(TipoIva tipoIva) {
-        return tipoIvaDao.save(tipoIva);
+        return tipoIvaRepository.save(tipoIva);
     }
 
     @Override
     public void deleteById(int id) {
-        tipoIvaDao.deleteById(id);
+        tipoIvaRepository.deleteById(id);
     }
 
     @Override
     public boolean IvaExists(int id) {
-        return tipoIvaDao.existsById(id);
+        return tipoIvaRepository.existsById(id);
     }
 }

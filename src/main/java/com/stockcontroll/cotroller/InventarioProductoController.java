@@ -34,17 +34,13 @@ public class InventarioProductoController {
     }
 
     @GetMapping("/lista/{idInventario}")
-    public ResponseEntity<List<InventarioProducto>> obtenerPorIdInventario(@PathVariable int idInventario, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        List<InventarioProducto> inventarioProductos = inventarioProductoService.obtenerPorIdInventario(idInventario);
-        if (inventarioProductos.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+    public Page<InventarioProducto> obtenerPorIdInventario(@PathVariable int idInventario,
+                                                                           @RequestParam(defaultValue = "0") int page,
+                                                                           @RequestParam(defaultValue = "10") int size) {
 
-        int start = page * size;
-        int end = Math.min(start + size, inventarioProductos.size());
-        List<InventarioProducto> paginatedProductos = inventarioProductos.subList(start, end);
+        Pageable pageable = PageRequest.of(page, size);
 
-        return ResponseEntity.ok(paginatedProductos);
+        return inventarioProductoService.obtenerPorIdInventarioPags(idInventario, pageable);
     }
 
 

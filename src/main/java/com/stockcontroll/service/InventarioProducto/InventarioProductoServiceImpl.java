@@ -18,10 +18,15 @@ public class InventarioProductoServiceImpl implements InventarioProductoService{
     @Autowired
     private InventarioProductoRepository inventarioProductoRepository;
 
+    @Override
     public List<InventarioProducto> obtenerPorIdInventario(int idInventario) {
         return inventarioProductoRepository.findByInventarioId(idInventario);
     }
 
+    @Override
+    public Page<InventarioProducto> obtenerPorIdInventarioPags(int idInventario, Pageable pageable) {
+        return inventarioProductoRepository.findByInventarioId(idInventario, pageable);
+    }
 
     @Override
     public Optional<InventarioProducto> obtenerPorIdInventarioYProducto(int idInventario, int idProducto) {

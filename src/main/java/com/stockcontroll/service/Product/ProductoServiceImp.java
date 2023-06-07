@@ -1,8 +1,8 @@
 package com.stockcontroll.service.Product;
 
-import com.stockcontroll.repository.ProductoRepository;
 import com.stockcontroll.model.Producto;
-import com.stockcontroll.service.Proveedor.ProveedorService;
+import com.stockcontroll.repository.InventarioProductoRepository;
+import com.stockcontroll.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ public class ProductoServiceImp implements ProductService{
     private ProductoRepository productoRepository;
 
     @Autowired
-    private ProveedorService proveedorService;
+    private InventarioProductoRepository inventarioProductoRepository;
 
     @Override
     public Page<Producto> findByName(String name, Pageable pageable) {
@@ -58,6 +58,7 @@ public class ProductoServiceImp implements ProductService{
 
     @Override
     public void deleteById(int id) {
+        inventarioProductoRepository.updateProductToNull(id);
         productoRepository.deleteById(id);
     }
 

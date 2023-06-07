@@ -70,7 +70,7 @@ public class ProveedorController {
         } catch (Exception e) {
             return new ResponseEntity<>("ERROR AL EDITAR PROVEEDOR", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>("PROVEEDOR EDITADO", HttpStatus.CREATED);
+        return new ResponseEntity<>("PROVEEDOR EDITADO", HttpStatus.OK);
     }
 
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)

@@ -31,7 +31,7 @@ public class PdfGenerator {
         table.setWidths(new float[]{3, 3, 3, 3, 3, 3, 3, 3, 3});
         table.setSpacingBefore(10);
 
-        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
+        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.DARK_GRAY);
         PdfPCell headerCell = new PdfPCell();
         headerCell.setBackgroundColor(colorFondo);
         headerCell.setPadding(5);
@@ -98,7 +98,7 @@ public class PdfGenerator {
         table.setWidths(new float[]{3, 3, 3, 3, 3, 3});
         table.setSpacingBefore(10);
 
-        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.WHITE);
+        Font fontHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, Font.BOLD, BaseColor.DARK_GRAY);
         PdfPCell headerCell = new PdfPCell();
         headerCell.setBackgroundColor(colorFondo);
         headerCell.setPadding(5);

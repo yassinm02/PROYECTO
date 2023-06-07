@@ -38,6 +38,6 @@ public class ProveedorServiceImpl implements ProveedorService{
 
     @Override
     public boolean ProveedorExists(int id) {
-        return !proveedorRepository.existsById(id);
+        return proveedorRepository.existsById(id);
     }
 }

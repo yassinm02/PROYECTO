@@ -30,18 +30,6 @@ public class ProductosController {
     @Autowired
     private ProveedorService proveedorService;
 
-    @GetMapping("/check")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getCheck(){
-        try{
-            long count = productService.count();
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-
     @GetMapping()
     public List<Producto> ListProducts(){
         return productService.findAll();
@@ -59,6 +47,19 @@ public class ProductosController {
             return productService.findByName(searchTerm, pageable);
         } else {
             return productService.findAll(pageable);
+        }
+
+
+    }
+
+    @GetMapping("/check")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getCheck(){
+        try{
+            long count = productService.count();
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

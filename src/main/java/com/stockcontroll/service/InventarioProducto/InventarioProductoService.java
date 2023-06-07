@@ -11,6 +11,9 @@ public interface InventarioProductoService {
 
     List<InventarioProducto> obtenerPorIdInventario(int idInventario);
 
+    Page<InventarioProducto> obtenerPorIdInventarioPags(int idInventario, Pageable pageable);
+
+
     Optional<InventarioProducto> obtenerPorIdInventarioYProducto(int idInventario, int idProducto);
 
     List<InventarioProducto> obtenerTodos();
